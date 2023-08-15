@@ -7,7 +7,7 @@ resource "null_resource" "addfile" {
        type = "ssh"
        user = "azureuser"
        private_key = tls_private_key.rsakey.private_key_pem
-       host = self.public_ip
+       host = self.public_ip_address
     }
   }
 
