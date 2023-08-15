@@ -11,5 +11,5 @@ resource "null_resource" "addfile" {
     host = "${azurerm_public_ip.PubIP.ip_address}"
     }
 
-    depends_on = [ azurerm_linux_virtual_machine.main, local_file.linuxprivatekey ]
+    depends_on = [ azurerm_linux_virtual_machine.main, local_file.linuxprivatekey, azurerm_public_ip.PubIP ]
   }
