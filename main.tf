@@ -145,19 +145,6 @@ resource "azurerm_linux_virtual_machine" "main" {
         public_key = tls_private_key.rsakey.public_key_openssh
     }  
 
-    provisioner "file" {
-        source = "index.html"
-        destination = "/var/www/html/index.html"
-        depends_on = [azurerm_public_ip.PubIP.ip_address, tls_private_key.rsakey.private_key_pem]
-        connection {
-        type = "ssh"
-        user = "azureuser"
-        private_key = tls_private_key.rsakey.private_key_pem
-        host = azurerm_public_ip.PubIP.ip_address
-        }
-        
-    }
-
     boot_diagnostics {
         storage_account_uri = azurerm_storage_account.storeacc.primary_blob_endpoint
     }
