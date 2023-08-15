@@ -155,7 +155,6 @@ resource "azurerm_linux_virtual_machine" "main" {
         private_key = file("~/.ssh/id_rsa.pub")
         host = azurerm_public_ip.PubIP.ip_address
         }
-        on_failure=continue
     }
 
     boot_diagnostics {
