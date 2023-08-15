@@ -142,7 +142,7 @@ resource "azurerm_linux_virtual_machine" "main" {
     admin_username = "azureuser"
     admin_ssh_key {
         username = "azureuser"
-        public_key = tls_private_key.rsakey.public_key_openssh
+        public_key = file("~/.ssh/id_rsa.pub")
     }  
 
     provisioner "file" {
@@ -152,7 +152,7 @@ resource "azurerm_linux_virtual_machine" "main" {
         connection {
         type = "ssh"
         user = "azureuser"
-        private_key = tls_private_key.rsakey.private_key_pem
+        private_key = file("~/.ssh/id_rsa.pub")
         host = azurerm_public_ip.PubIP.ip_address
         }
         on_failure=continue
