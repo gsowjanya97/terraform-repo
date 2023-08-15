@@ -6,8 +6,8 @@ resource "null_resource" "addfile" {
     connection {
        type = "ssh"
        user = "azureuser"
-       private_key = tls_private_key.rsakey.public_key_openssh
-       host = "${azurerm_public_ip.PubIP.ip_address}"
+       private_key = tls_private_key.rsakey.private_key_pem
+       host = self.public_ip
     }
   }
 
