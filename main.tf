@@ -106,6 +106,18 @@ resource "tls_private_key" "rsakey" {
     rsa_bits = "4096"
 }
 
+#Storing Private Key
+resource "local_file" "linuxprivatekey" {
+  filename = "linuxprivatekey.pem"
+  content = tls_private_key.rsakey.private_key_pem
+  depends_on = [ tls_private_key.rsakey ]
+}
+
+#Passing Custom Data
+data "template_file" "cloudinit" {
+    template = file("script.sh")
+}
+
 #Create a virtual machine
 resource "azurerm_linux_virtual_machine" "main" {
     name = "myVM-${random_pet.rg_name.id}"
@@ -120,7 +132,7 @@ resource "azurerm_linux_virtual_machine" "main" {
         sku = "22_04-lts-gen2"
         version = "latest" 
     }
-
+    custom_data = base64encode(data.template_file.cloudinit.rendered)
     os_disk {
         name = "MyOS-${random_pet.rg_name.id}"
         caching = "ReadWrite"
