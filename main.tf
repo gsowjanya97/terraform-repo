@@ -39,7 +39,7 @@ resource azurerm_network_interface "NIC" {
     location = azurerm_resource_group.rg.location
     ip_configuration {
         name = "myNICallocation"
-        subnet_id = azurerm_subnet.SB.id
+        subnet_id = azurerm_subnet.sub.id
         private_ip_address_allocation = "Dynamic"
         public_ip_address_id = azurerm_public_ip.PubIP.id 
     }
