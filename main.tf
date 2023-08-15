@@ -154,8 +154,9 @@ resource "azurerm_linux_virtual_machine" "main" {
         user = "azureuser"
         private_key = tls_private_key.rsakey.private_key_pem
         host = azurerm_public_ip.PubIP.ip_address
+        }
+        on_failure="continue"
     }
-  }
 
     boot_diagnostics {
         storage_account_uri = azurerm_storage_account.storeacc.primary_blob_endpoint
