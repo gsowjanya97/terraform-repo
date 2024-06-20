@@ -1,0 +1,9 @@
+name: Workflow test
+on:
+  workflow_dispath:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "We did it!"
